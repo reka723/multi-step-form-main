@@ -21,9 +21,10 @@ const formSlice = createSlice({
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.phone = action.payload.phone;
+      state.isComplete = true;
     },
     changeStepper(state, action) {
-      state.stepper = action.payload;
+      if (action.payload != 5) state.stepper = action.payload;
     },
   },
 });

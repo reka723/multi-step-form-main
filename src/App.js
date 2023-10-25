@@ -1,12 +1,9 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { useState } from "react";
-import Stepper from "./components/Stepper";
 import Card from "./components/Card";
 
 function App() {
   return (
-    <div className="App">
+    <div className="h-screen flex flex-col justify-center w-screen content-center items-center">
       <Card></Card>
     </div>
   );
