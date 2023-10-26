@@ -7,7 +7,7 @@ const Stepper = () => {
   const stepper = useSelector((state) => state.stepper);
   const dispatch = useDispatch();
   const handleClick = (value) => {
-    if (isComplete) dispatch(formActions.changeStepper(value));
+    if (isComplete) dispatch(formActions.changeStepper({ value: value }));
   };
   return (
     <div
@@ -19,6 +19,7 @@ const Stepper = () => {
           title={"Your info"}
           onClick={handleClick}
           isActive={stepper == 1}
+          text={"Please provide your name, email address and phone number."}
         />
       </div>
       <div>

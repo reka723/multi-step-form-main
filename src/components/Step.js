@@ -15,8 +15,8 @@ const Step = (props) => {
       >
         {props.number}
       </p>
-      <div className="invisible md:visible text-xs md:text-base bg-teal-200 md:w-32">
-        <p>Step {props.number}</p>
+      <div className="text-xs md:text-base bg-teal-200 md:w-32">
+        <p className="invisible md:visible">Step {props.number}</p>
         <p>{props.title}</p>
       </div>
     </div>
