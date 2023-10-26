@@ -1,5 +1,6 @@
 import {
   Button,
+  RadioGroup,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
@@ -10,20 +11,16 @@ import { formActions } from "../store/formSlice";
 import { Controller, useForm } from "react-hook-form";
 
 const FormHolder = () => {
-  const { control, handleSubmit } = useForm({
-    defaultValues: { name: "", emailAddress: "", phoneNumber: "" },
-  });
+  const { control, handleSubmit } = useForm({});
   const stepper = useSelector((state) => state.stepper);
+  const name = useSelector((state) => state.name);
   const title = useSelector((state) => state.title);
-  const text = useSelector((state) => state.text);
   const dispatch = useDispatch();
   const handleClick = (value) => {
     dispatch(formActions.changeStepper({ value: value }));
   };
-  console.log(title);
 
   const onSubmit = (data) => {
-    console.log(data);
     handleClick(stepper + 1);
     if (stepper == 1) {
       dispatch(formActions.firstStep(data));
@@ -43,7 +40,7 @@ const FormHolder = () => {
                   <Controller
                     name="name"
                     control={control}
-                    defaultValue={null}
+                    defaultValue={name}
                     render={({ field }) => (
                       <TextField required {...field} name="Name" />
                     )}
@@ -87,26 +84,22 @@ const FormHolder = () => {
                   <Controller
                     name="plan"
                     control={control}
-                    defaultValue={["bold", "italic"]}
                     render={({ field }) => (
-                      <ToggleButtonGroup
-                        exclusive
-                        {...field}
-                        aria-label="text formatting"
-                      >
-                        <ToggleButton value="bold" aria-label="bold">
-                          1
-                        </ToggleButton>
-                        <ToggleButton value="italic" aria-label="italic">
-                          2
-                        </ToggleButton>
-                        <ToggleButton
-                          value="underlined"
-                          aria-label="underlined"
-                        >
-                          3
-                        </ToggleButton>
-                      </ToggleButtonGroup>
+                      <input type="radio" value={"1"} {...field} />
+                    )}
+                  />
+                  <Controller
+                    name="plan"
+                    control={control}
+                    render={({ field }) => (
+                      <input type="radio" value={"2"} {...field} />
+                    )}
+                  />
+                  <Controller
+                    name="plan"
+                    control={control}
+                    render={({ field }) => (
+                      <input type="radio" value={"3"} {...field} />
                     )}
                   />
                 </div>
@@ -119,7 +112,7 @@ const FormHolder = () => {
             return <p>No matching case found!</p>;
         }
       })()}
-      <div className="absolute bottom-0 w-full bg-slate-50 left-0 p-4">
+      <div className="absolute bottom-0 w-full bg-orange-200 left-0 p-4 text-right">
         <Button type="submit" variant="contained">
           {stepper <= 3 ? "Next Step" : "Finish"}
         </Button>

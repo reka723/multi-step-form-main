@@ -39,13 +39,14 @@ const formSlice = createSlice({
   initialState: initialFormState,
   reducers: {
     firstStep(state, action) {
-      state.name = action.payload.name;
-      state.email = action.payload.email;
-      state.phone = action.payload.phone;
+      console.log(action.payload);
+      for (const key in action.payload) {
+        console.log(key);
+        state[key] = action.payload[key];
+      }
       state.isComplete = true;
     },
     changeStepper(state, action) {
-      console.log(action.payload);
       if (action.payload.value != 5) {
         state.stepper = action.payload.value;
         state.title = text[action.payload.value - 1].title;
