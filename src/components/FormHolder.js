@@ -11,6 +11,7 @@ import { formActions } from "../store/formSlice";
 import { Controller, useForm } from "react-hook-form";
 import FirstStep from "./firstStep";
 import SecondStep from "./SecondStep";
+import ThirdStep from "./ThirdStep";
 
 const FormHolder = () => {
   const { control, handleSubmit } = useForm({});
@@ -39,7 +40,10 @@ const FormHolder = () => {
             // Code to execute when key is equal to value
             // You can include JSX or other logic here
             return <SecondStep title={title} />;
-
+          case 3:
+            // Code to execute when key is equal to value
+            // You can include JSX or other logic here
+            return <ThirdStep title={title} />;
           default:
             // Code to execute when key doesn't match any case
             // You can include JSX or other logic here

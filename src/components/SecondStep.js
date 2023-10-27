@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, Switch, TextField } from "@mui/material";
 import React, { useEffect, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,9 +12,8 @@ const SecondStep = ({ title }) => {
 
   const { control, handleSubmit, watch } = useForm({
     defaultValues: {
-      name: form.name,
-      emailAddress: form.emailAddress,
-      phoneNumber: form.phoneNumber,
+      plan: form.plan,
+      billing: form.billing,
     },
   });
 
@@ -22,9 +21,16 @@ const SecondStep = ({ title }) => {
     dispatch(formActions.changeStepper({ value: stepper + 1 }));
   };
   useEffect(() => {
-    const subscription = watch((value) =>
-      dispatch(formActions.updateForm(value))
-    );
+    const subscription = watch((value) => {
+      if (value.billing == true) {
+        value.billing = "Yearly";
+      }
+      if (value.billing == false) {
+        value.billing = "Monthly";
+      }
+      console.log(value.billing);
+      dispatch(formActions.updateForm(value));
+    });
 
     return () => subscription.unsubscribe();
   }, [watch]);
@@ -35,29 +41,62 @@ const SecondStep = ({ title }) => {
         <p>{title}</p>
         <div className="flex flex-col mt-52 m-4 gap-4">
           <Controller
-            name="name"
+            name="plan"
             control={control}
             render={({ field }) => (
-              <TextField required {...field} name="Name" />
+              <label>
+                <input
+                  type="radio"
+                  required
+                  {...field}
+                  value={1}
+                  defaultChecked={form.plan === "1"}
+                />
+                1
+              </label>
             )}
           />
           <Controller
-            name="emailAddress"
+            name="plan"
             control={control}
             render={({ field }) => (
-              <TextField
-                required
-                type="email"
-                {...field}
-                name="Email Address"
-              />
+              <label>
+                <input
+                  type="radio"
+                  required
+                  {...field}
+                  value={2}
+                  defaultChecked={form.plan === "2"}
+                />
+                2
+              </label>
             )}
           />
           <Controller
-            name="phoneNumber"
+            name="plan"
             control={control}
             render={({ field }) => (
-              <TextField required type="tel" {...field} name="Phone Number" />
+              <label>
+                <input
+                  type="radio"
+                  required
+                  {...field}
+                  value={3}
+                  defaultChecked={form.plan === "3"}
+                />
+                3
+              </label>
+            )}
+          />
+          <Controller
+            name="billing"
+            control={control}
+            render={({ field }) => (
+              <label>
+                Monthly
+                <Switch {...field} defaultChecked={form.billing === "Yearly"} />
+                Yearly
+              </label>
             )}
           />
         </div>
