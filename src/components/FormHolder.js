@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { formActions } from "../store/formSlice";
 import { Controller, useForm } from "react-hook-form";
 import FirstStep from "./firstStep";
+import SecondStep from "./SecondStep";
 
 const FormHolder = () => {
   const { control, handleSubmit } = useForm({});
@@ -37,34 +38,7 @@ const FormHolder = () => {
           case 2:
             // Code to execute when key is equal to value
             // You can include JSX or other logic here
-            return (
-              <div className="bg-slate-300 md:w-1/2 w-11/12  m-auto absolute top-24 left-0 right-0 ml-auto rounded-lg overflow-hidden h-2/3  bg-stone-400 m-5">
-                <p>{title}</p>
-                <div className="flex flex-col mt-52 m-4 gap-4">
-                  {/* <Controller
-                    name="plan"
-                    control={control}
-                    render={({ field }) => (
-                      <input type="radio" value={"1"} {...field} />
-                    )}
-                  />
-                  <Controller
-                    name="plan"
-                    control={control}
-                    render={({ field }) => (
-                      <input type="radio" value={"2"} {...field} />
-                    )}
-                  />
-                  <Controller
-                    name="plan"
-                    control={control}
-                    render={({ field }) => (
-                      <input type="radio" value={"3"} {...field} />
-                    )}
-                  /> */}
-                </div>
-              </div>
-            );
+            return <SecondStep title={title} />;
 
           default:
             // Code to execute when key doesn't match any case
