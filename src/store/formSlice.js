@@ -23,12 +23,15 @@ const text = [
 const initialFormState = {
   stepper: 1,
   isComplete: false,
-  name: null,
-  email: null,
-  phone: null,
-  plan: "arcade",
-  planPrice: 9,
-  billing: "monthly",
+  form: {
+    name: null,
+    emailAddress: null,
+    phoneNumber: null,
+    plan: "arcade",
+    planPrice: 9,
+    billing: "monthly",
+  },
+
   title: text[0].title,
   text: text[0].text,
   addons: [],
@@ -38,11 +41,11 @@ const formSlice = createSlice({
   name: "form",
   initialState: initialFormState,
   reducers: {
-    firstStep(state, action) {
+    updateForm(state, action) {
       console.log(action.payload);
       for (const key in action.payload) {
         console.log(key);
-        state[key] = action.payload[key];
+        state.form[key] = action.payload[key];
       }
       state.isComplete = true;
     },

@@ -13,7 +13,6 @@ import FirstStep from "./firstStep";
 
 const FormHolder = () => {
   const { control, handleSubmit } = useForm({});
-  const name = useSelector((state) => state.name);
   const title = useSelector((state) => state.title);
   const stepper = useSelector((state) => state.stepper);
   const dispatch = useDispatch();

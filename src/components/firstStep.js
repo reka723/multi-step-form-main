@@ -1,14 +1,34 @@
 import { Button, TextField } from "@mui/material";
-import React from "react";
+import React, { useEffect, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { formActions } from "../store/formSlice";
 
 const FirstStep = ({ title }) => {
-  const { control, handleSubmit } = useForm({});
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const dispatch = useDispatch();
+
+  const form = useSelector((state) => state.form);
   const stepper = useSelector((state) => state.stepper);
+
+  const { control, handleSubmit, watch } = useForm({
+    defaultValues: {
+      name: form.name,
+      emailAddress: form.emailAddress,
+      phoneNumber: form.phoneNumber,
+    },
+  });
+
+  const onSubmit = (data) => {
+    dispatch(formActions.changeStepper({ value: stepper + 1 }));
+  };
+  useEffect(() => {
+    const subscription = watch((value) =>
+      dispatch(formActions.updateForm(value))
+    );
+
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="bg-slate-300 md:w-1/2 w-11/12  m-auto absolute top-24 left-0 right-0 ml-auto rounded-lg overflow-hidden h-2/3  bg-stone-400 m-5">
@@ -17,7 +37,6 @@ const FirstStep = ({ title }) => {
           <Controller
             name="name"
             control={control}
-            defaultValue={null}
             render={({ field }) => (
               <TextField required {...field} name="Name" />
             )}
@@ -25,7 +44,6 @@ const FirstStep = ({ title }) => {
           <Controller
             name="emailAddress"
             control={control}
-            defaultValue={null}
             render={({ field }) => (
               <TextField
                 required
@@ -38,7 +56,6 @@ const FirstStep = ({ title }) => {
           <Controller
             name="phoneNumber"
             control={control}
-            defaultValue={null}
             render={({ field }) => (
               <TextField required type="tel" {...field} name="Phone Number" />
             )}
