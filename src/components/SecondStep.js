@@ -39,30 +39,33 @@ const SecondStep = ({ title, handleBack }) => {
   const fields = Plan.find((item) => item.id === form.billing);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="bg-slate-300 md:w-1/2 w-11/12  m-auto absolute top-24 left-0 right-0 ml-auto rounded-lg overflow-hidden h-2/3  bg-stone-400 m-5">
+      <div className="bg-slate-300 md:w-1/2 w-11/12  m-auto absolute top-24 left-0 right-0 ml-auto rounded-lg overflow-hidden h-2/3  bg-stone-400 ">
         <p>{title}</p>
-        {fields.plans.map((item) => (
-          <Controller
-            key={item.name}
-            name="plan"
-            control={control}
-            render={({ field }) => (
-              <label key={item.name}>
-                <input
-                  type="radio"
-                  required
-                  {...field}
-                  value={item.name}
-                  defaultChecked={form.plan === item.name}
-                />
-                <div>
-                  <p>{item.name}</p>
-                  <p>{item.fee}</p>
-                </div>
-              </label>
-            )}
-          />
-        ))}
+        <div className="h-1/2">
+          {fields.plans.map((item) => (
+            <Controller
+              key={item.name}
+              name="plan"
+              control={control}
+              render={({ field }) => (
+                <label key={item.name}>
+                  <input
+                    type="radio"
+                    required
+                    {...field}
+                    value={item.name}
+                    defaultChecked={form.plan === item.name}
+                  />
+                  <div>
+                    <p>{item.name}</p>
+                    <p>{item.fee}</p>
+                    {form.billing === "Yearly" && <p>2 months free</p>}
+                  </div>
+                </label>
+              )}
+            />
+          ))}
+        </div>
         <div className="flex flex-col mt-40 m-4 gap-4">
           <Controller
             name="billing"
