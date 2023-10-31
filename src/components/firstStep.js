@@ -62,8 +62,8 @@ const FirstStep = ({ title }) => {
           />
         </div>
       </div>
-      <div className="absolute bottom-0 w-full bg-orange-200 left-0 p-4 text-right">
-        <Button type="submit" variant="contained">
+      <div className="absolute bottom-0 w-full bg-orange-200 left-0 p-4  ">
+        <Button type="submit" variant="contained" sx={{ float: "right" }}>
           {stepper <= 3 ? "Next Step" : "Finish"}
         </Button>
       </div>

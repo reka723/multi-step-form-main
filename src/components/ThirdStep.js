@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { formActions } from "../store/formSlice";
 import { AddOns } from "../data";
 
-const ThirdStep = ({ title }) => {
+const ThirdStep = ({ title, handleBack }) => {
   const dispatch = useDispatch();
 
   const form = useSelector((state) => state.form);
@@ -28,7 +28,6 @@ const ThirdStep = ({ title }) => {
       const arrayOfIds = Object.keys(value).filter((key) => value[key]);
       dispatch(formActions.updateForm({ addOns: arrayOfIds }));
     });
-
     return () => subscription.unsubscribe();
   }, [watch]);
 
@@ -47,7 +46,6 @@ const ThirdStep = ({ title }) => {
                   <div className="flex">
                     <input
                       type="checkbox"
-                      required
                       {...field}
                       defaultChecked={form.addOns.includes(addOn.id.toString())}
                     />
@@ -61,8 +59,17 @@ const ThirdStep = ({ title }) => {
           })}
         </div>
       </div>
-      <div className="absolute bottom-0 w-full bg-orange-200 left-0 p-4 text-right">
-        <Button type="submit" variant="contained">
+      <div className="absolute bottom-0 w-full bg-orange-200 left-0 p-4 ">
+        {stepper >= 2 && (
+          <Button
+            onClick={handleBack}
+            variant="contained"
+            sx={{ display: "inline-block" }}
+          >
+            {"Go back"}
+          </Button>
+        )}
+        <Button type="submit" variant="contained" sx={{ float: "right" }}>
           {stepper <= 3 ? "Next Step" : "Finish"}
         </Button>
       </div>

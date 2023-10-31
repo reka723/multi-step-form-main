@@ -1,5 +1,5 @@
 import { act } from "react-dom/test-utils";
-import { textData } from "../data";
+import { Plan, textData } from "../data";
 
 const { create } = require("@mui/material/styles/createTransitions");
 const { createSlice } = require("@reduxjs/toolkit");
@@ -11,9 +11,9 @@ const initialFormState = {
     name: null,
     emailAddress: null,
     phoneNumber: null,
-    plan: "arcade",
-    planPrice: 9,
-    billing: "monthly",
+    plan: Plan[0].plans[0].fee,
+    billing: Plan[0].id,
+
     addOns: [1],
   },
 

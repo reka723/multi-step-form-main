@@ -18,8 +18,9 @@ const FormHolder = () => {
   const title = useSelector((state) => state.title);
   const stepper = useSelector((state) => state.stepper);
   const dispatch = useDispatch();
-  const handleClick = (value) => {
-    dispatch(formActions.changeStepper({ value: value }));
+  const handleBack = () => {
+    console.log(stepper);
+    dispatch(formActions.changeStepper({ value: stepper - 1 }));
   };
 
   //   const onSubmit = (data) => {
@@ -39,11 +40,11 @@ const FormHolder = () => {
           case 2:
             // Code to execute when key is equal to value
             // You can include JSX or other logic here
-            return <SecondStep title={title} />;
+            return <SecondStep title={title} handleBack={handleBack} />;
           case 3:
             // Code to execute when key is equal to value
             // You can include JSX or other logic here
-            return <ThirdStep title={title} />;
+            return <ThirdStep title={title} handleBack={handleBack} />;
           default:
             // Code to execute when key doesn't match any case
             // You can include JSX or other logic here

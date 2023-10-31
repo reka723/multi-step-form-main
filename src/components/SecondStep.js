@@ -3,8 +3,9 @@ import React, { useEffect, useReducer } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { formActions } from "../store/formSlice";
+import { Plan } from "../data";
 
-const SecondStep = ({ title }) => {
+const SecondStep = ({ title, handleBack }) => {
   const dispatch = useDispatch();
 
   const form = useSelector((state) => state.form);
@@ -35,59 +36,34 @@ const SecondStep = ({ title }) => {
     return () => subscription.unsubscribe();
   }, [watch]);
 
+  const fields = Plan.find((item) => item.id === form.billing);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="bg-slate-300 md:w-1/2 w-11/12  m-auto absolute top-24 left-0 right-0 ml-auto rounded-lg overflow-hidden h-2/3  bg-stone-400 m-5">
         <p>{title}</p>
-        <div className="flex flex-col mt-52 m-4 gap-4">
+        {fields.plans.map((item) => (
           <Controller
+            key={item.name}
             name="plan"
             control={control}
             render={({ field }) => (
-              <label>
+              <label key={item.name}>
                 <input
                   type="radio"
                   required
                   {...field}
-                  value={1}
-                  defaultChecked={form.plan === "1"}
+                  value={item.name}
+                  defaultChecked={form.plan === item.name}
                 />
-                1
+                <div>
+                  <p>{item.name}</p>
+                  <p>{item.fee}</p>
+                </div>
               </label>
             )}
           />
-          <Controller
-            name="plan"
-            control={control}
-            render={({ field }) => (
-              <label>
-                <input
-                  type="radio"
-                  required
-                  {...field}
-                  value={2}
-                  defaultChecked={form.plan === "2"}
-                />
-                2
-              </label>
-            )}
-          />
-          <Controller
-            name="plan"
-            control={control}
-            render={({ field }) => (
-              <label>
-                <input
-                  type="radio"
-                  required
-                  {...field}
-                  value={3}
-                  defaultChecked={form.plan === "3"}
-                />
-                3
-              </label>
-            )}
-          />
+        ))}
+        <div className="flex flex-col mt-40 m-4 gap-4">
           <Controller
             name="billing"
             control={control}
@@ -101,8 +77,18 @@ const SecondStep = ({ title }) => {
           />
         </div>
       </div>
-      <div className="absolute bottom-0 w-full bg-orange-200 left-0 p-4 text-right">
-        <Button type="submit" variant="contained">
+
+      <div className="absolute bottom-0 w-full bg-orange-200 left-0 p-4 ">
+        {stepper >= 2 && (
+          <Button
+            onClick={handleBack}
+            variant="contained"
+            sx={{ display: "inline-block" }}
+          >
+            {"Go back"}
+          </Button>
+        )}
+        <Button variant="contained" type="submit" sx={{ float: "right" }}>
           {stepper <= 3 ? "Next Step" : "Finish"}
         </Button>
       </div>

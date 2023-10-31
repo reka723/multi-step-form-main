@@ -36,3 +36,39 @@ export const AddOns = [
     price: 2,
   },
 ];
+export const Plan = [
+  {
+    id: "Monthly",
+    plans: [
+      {
+        name: "Arcade",
+        fee: "9",
+      },
+      {
+        name: "Advanced",
+        fee: "12",
+      },
+      {
+        name: "Pro",
+        fee: "15",
+      },
+    ],
+  },
+  {
+    id: "Yearly",
+    plans: [
+      {
+        name: "Arcade",
+        fee: "90",
+      },
+      {
+        name: "Advanced",
+        fee: "120",
+      },
+      {
+        name: "Pro",
+        fee: "150",
+      },
+    ],
+  },
+];
