@@ -5,35 +5,63 @@ export const textData = [
   },
   {
     title: "Select plan",
-    text: "Please provide your name, email address and phone number.",
+    text: "You have the option of monthly or yearly billing.",
   },
   {
     title: "Add ons",
-    text: "Please provide your name, email address and phone number.",
+    text: "Add-ons help enhance your game experience.",
   },
   {
     title: "Summary",
-    text: "Please provide your name, email address and phone number.",
+    text: "Double-check everything looks OK before confirming.",
   },
 ];
 export const AddOns = [
   {
-    id: 1,
-    title: "Online service",
-    text: "Access to multiplayer games",
-    price: 1,
+    id: "Monthly",
+    plans: [
+      {
+        id: 1,
+        title: "Online service",
+        text: "Access to multiplayer games",
+        price: 1,
+      },
+      {
+        id: 2,
+        title: "Larger storage",
+        text: "Extra 1TB of cloud save",
+        price: 2,
+      },
+      {
+        id: 3,
+        title: "Customizable Profile",
+        text: "Custom theme on your profile",
+        price: 2,
+      },
+    ],
   },
   {
-    id: 2,
-    title: "Larger storage",
-    text: "Extra 1TB of cloud save",
-    price: 2,
-  },
-  {
-    id: 3,
-    title: "Customizable Profile",
-    text: "Custom theme on your profile",
-    price: 2,
+    id: "Yearly",
+    plans: [
+      {
+        id: 1,
+        title: "Online service",
+        text: "Access to multiplayer games",
+        price: 10,
+      },
+      {
+        id: 2,
+        title: "Larger storage",
+        text: "Extra 1TB of cloud save",
+        price: 20,
+      },
+      {
+        id: 3,
+        title: "Customizable Profile",
+        text: "Custom theme on your profile",
+        price: 20,
+      },
+    ],
   },
 ];
 export const Plan = [

@@ -8,6 +8,7 @@ const FirstStep = ({ title }) => {
   const dispatch = useDispatch();
 
   const form = useSelector((state) => state.form);
+  const text = useSelector((state) => state.text);
   const stepper = useSelector((state) => state.stepper);
 
   const { control, handleSubmit, watch } = useForm({
@@ -31,39 +32,71 @@ const FirstStep = ({ title }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="bg-slate-300 md:w-1/2 w-11/12  m-auto absolute top-24 left-0 right-0 ml-auto rounded-lg overflow-hidden h-2/3  bg-stone-400 m-5">
-        <p>{title}</p>
-        <div className="flex flex-col mt-52 m-4 gap-4">
+      <div className=" md:w-1/2 w-11/12  m-auto absolute top-24 left-0 right-0 ml-auto rounded-lg overflow-hidden h-2/3  bg-white  m-5 shadow-lg">
+        <div className="flex flex-col mt-12 m-4 gap-4 ">
+          <p className="text-3xl font-bold text-blue-950">{title}</p>
+          <p className="text-slate-400">{text}</p>
           <Controller
             name="name"
             control={control}
             render={({ field }) => (
-              <TextField required {...field} name="Name" />
+              <>
+                <label className="-mb-2 text-blue-950 font-medium">Name</label>
+                <TextField
+                  required
+                  {...field}
+                  name="Name"
+                  placeholder="e.g. Stephen King"
+                />
+              </>
             )}
           />
           <Controller
             name="emailAddress"
             control={control}
             render={({ field }) => (
-              <TextField
-                required
-                type="email"
-                {...field}
-                name="Email Address"
-              />
+              <>
+                <label className="-mb-2 text-blue-950 font-medium">
+                  Email Address
+                </label>
+                <TextField
+                  required
+                  type="email"
+                  placeholder="e.g. stephenking@lorem.com"
+                  {...field}
+                  name="Email"
+                />
+              </>
             )}
           />
           <Controller
             name="phoneNumber"
             control={control}
             render={({ field }) => (
-              <TextField required type="tel" {...field} name="Phone Number" />
+              <>
+                <label className="-mb-2 text-blue-950 font-medium">
+                  Phone Number
+                </label>
+                <TextField
+                  required
+                  type="tel"
+                  placeholder="e.g. 0613 231 3555"
+                  pattern="[0-9]{4} [0-9]{3} [0-9]{4}"
+                  maxlength="12"
+                  {...field}
+                  name="Phone"
+                />
+              </>
             )}
           />
         </div>
       </div>
-      <div className="absolute bottom-0 w-full bg-orange-200 left-0 p-4  ">
-        <Button type="submit" variant="contained" sx={{ float: "right" }}>
+      <div className="absolute bottom-0 w-full bg-white shadow-inner left-0 p-4  ">
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ float: "right", backgroundColor: "rgb(23 37 84)" }}
+        >
           {stepper <= 3 ? "Next Step" : "Finish"}
         </Button>
       </div>
