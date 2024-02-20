@@ -26,8 +26,14 @@ const formSlice = createSlice({
   initialState: initialFormState,
   reducers: {
     updateForm(state, action) {
-      for (const key in action.payload.addOns) {
-        state.form.addOns[key] = Number(action.payload.addOns[key]);
+      if (action.payload.addOns) {
+        for (const key in action.payload.addOns) {
+          state.form.addOns[key] = Number(action.payload.addOns[key]);
+        }
+      } else {
+        for (const key in action.payload) {
+          state.form[key] = action.payload[key];
+        }
       }
       state.isComplete = true;
     },
