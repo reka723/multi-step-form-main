@@ -11,10 +11,10 @@ const initialFormState = {
     name: null,
     emailAddress: null,
     phoneNumber: null,
-    plan: Plan[0].plans[0].fee,
+    plan: Plan[0].plans[0].name,
     billing: Plan[0].id,
 
-    addOns: [1]
+    addOns: []
   },
 
   title: textData[0].title,

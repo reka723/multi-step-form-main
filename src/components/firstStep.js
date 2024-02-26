@@ -1,8 +1,8 @@
-import { Button, TextField } from "@mui/material";
-import React, { useEffect, useReducer } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { formActions } from "../store/formSlice";
+import { Button, TextField } from '@mui/material';
+import React, { useEffect, useReducer } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { formActions } from '../store/formSlice';
 
 const FirstStep = ({ title }) => {
   const dispatch = useDispatch();
@@ -15,24 +15,22 @@ const FirstStep = ({ title }) => {
     defaultValues: {
       name: form.name,
       emailAddress: form.emailAddress,
-      phoneNumber: form.phoneNumber,
-    },
+      phoneNumber: form.phoneNumber
+    }
   });
 
   const onSubmit = (data) => {
     dispatch(formActions.changeStepper({ value: stepper + 1 }));
   };
   useEffect(() => {
-    const subscription = watch((value) =>
-      dispatch(formActions.updateForm(value))
-    );
+    const subscription = watch((value) => dispatch(formActions.updateForm(value)));
 
     return () => subscription.unsubscribe();
   }, [watch]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className=" md:w-1/2 w-11/12  m-auto absolute top-24 left-0 right-0 ml-auto rounded-lg overflow-hidden h-2/3  bg-white  m-5 shadow-lg">
+      <div className>
         <div className="flex flex-col mt-12 m-4 gap-4 ">
           <p className="text-3xl font-bold text-blue-950">{title}</p>
           <p className="text-slate-400">{text}</p>
@@ -42,12 +40,7 @@ const FirstStep = ({ title }) => {
             render={({ field }) => (
               <>
                 <label className="-mb-2 text-blue-950 font-medium">Name</label>
-                <TextField
-                  required
-                  {...field}
-                  name="Name"
-                  placeholder="e.g. Stephen King"
-                />
+                <TextField required {...field} name="Name" placeholder="e.g. Stephen King" />
               </>
             )}
           />
@@ -56,9 +49,7 @@ const FirstStep = ({ title }) => {
             control={control}
             render={({ field }) => (
               <>
-                <label className="-mb-2 text-blue-950 font-medium">
-                  Email Address
-                </label>
+                <label className="-mb-2 text-blue-950 font-medium">Email Address</label>
                 <TextField
                   required
                   type="email"
@@ -74,9 +65,7 @@ const FirstStep = ({ title }) => {
             control={control}
             render={({ field }) => (
               <>
-                <label className="-mb-2 text-blue-950 font-medium">
-                  Phone Number
-                </label>
+                <label className="-mb-2 text-blue-950 font-medium">Phone Number</label>
                 <TextField
                   required
                   type="tel"
@@ -95,9 +84,8 @@ const FirstStep = ({ title }) => {
         <Button
           type="submit"
           variant="contained"
-          sx={{ float: "right", backgroundColor: "rgb(23 37 84)" }}
-        >
-          {stepper <= 3 ? "Next Step" : "Finish"}
+          sx={{ float: 'right', backgroundColor: 'rgb(23 37 84)' }}>
+          {stepper <= 3 ? 'Next Step' : 'Finish'}
         </Button>
       </div>
     </form>

@@ -40,11 +40,17 @@ const ThirdStep = ({ title, handleBack }) => {
   const plan = AddOns.find((addon) => addon.id === form.billing);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className=" md:w-1/2 w-11/12  m-auto absolute top-24 left-0 right-0 ml-auto rounded-lg overflow-hidden h-auto  bg-white  m-5 shadow-lg pb-12">
+      <div className>
         <div className="flex flex-col mt-12 m-4 gap-4 ">
           <p className="text-3xl font-bold text-blue-950">{title}</p>
           <p className="text-slate-400">{text}</p>
           {plan.plans.map((addOn) => {
+            let price;
+            if (form.billing === 'Yearly') {
+              price = <p>+{addOn.price}/yr</p>;
+            } else if (form.billing === 'Monthly') {
+              price = <p>+{addOn.price}/mo</p>;
+            }
             return (
               <Controller
                 key={addOn.id}
@@ -59,7 +65,7 @@ const ThirdStep = ({ title, handleBack }) => {
                     />
                     {addOn.title}
                     {addOn.text}
-                    {addOn.price}
+                    {price}
                   </div>
                 )}
               />

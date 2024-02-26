@@ -1,11 +1,11 @@
-import { Button } from "@mui/material";
-import React, { useEffect, useReducer } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { formActions } from "../store/formSlice";
-import { AddOns, Plan } from "../data";
+import { Button } from '@mui/material';
+import React, { useEffect, useReducer } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { formActions } from '../store/formSlice';
+import { AddOns, Plan } from '../data';
 
-const Finish = ({ title, handleBack }) => {
+const FourthStep = ({ title, handleBack }) => {
   const dispatch = useDispatch();
 
   const form = useSelector((state) => state.form);
@@ -17,15 +17,15 @@ const Finish = ({ title, handleBack }) => {
     dispatch(formActions.changeStepper({ value: stepper + 1 }));
   };
   let fee = null;
+  let finalFee = 0;
 
   const addonPlan = AddOns.find((addon) => addon.id === form.billing);
   for (const billing of Plan) {
     if (billing.id === form.billing) {
-      const matchingPlan = billing.plans.find(
-        (plan) => plan.name === form.plan
-      );
+      const matchingPlan = billing.plans.find((plan) => plan.name === form.plan);
       if (matchingPlan) {
         fee = matchingPlan.fee;
+        finalFee += Number(matchingPlan.fee);
         break;
       }
     }
@@ -33,7 +33,7 @@ const Finish = ({ title, handleBack }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className=" md:w-1/2 w-11/12  m-auto absolute top-24 left-0 right-0 ml-auto rounded-lg overflow-hidden h-auto  bg-white  m-5 shadow-lg pb-12">
+      <div className>
         <div className="flex flex-col mt-12 m-4 gap-4 ">
           <p className="text-3xl font-bold text-blue-950">{title}</p>
           <p className="text-slate-400">{text}</p>
@@ -46,24 +46,19 @@ const Finish = ({ title, handleBack }) => {
                 <p>Change</p>
               </div>
               <div>
-                ${fee}/{form.billing == "Yearly" ? "yr" : "mo"}
+                ${fee}/{form.billing == 'Yearly' ? 'yr' : 'mo'}
               </div>
             </div>
             {form.addOns.map((addon) => {
-              const matchingAddOn = addonPlan.plans.find(
-                (entry) => entry.id.toString() === addon
-              );
+              const matchingAddOn = addonPlan.plans.find((entry) => entry.id === addon);
 
               if (matchingAddOn) {
+                finalFee += Number(matchingAddOn.price);
                 return (
-                  <div
-                    key={matchingAddOn.id}
-                    className="flex justify-between items-center"
-                  >
+                  <div key={matchingAddOn.id} className="flex justify-between items-center">
                     <p>{matchingAddOn.title}</p>
                     <p>
-                      ${matchingAddOn.price}/
-                      {form.billing == "Yearly" ? "yr" : "mo"}
+                      +${matchingAddOn.price}/{form.billing == 'Yearly' ? 'yr' : 'mo'}
                     </p>
                   </div>
                 );
@@ -71,7 +66,9 @@ const Finish = ({ title, handleBack }) => {
               return null;
             })}
           </div>
-          <div className="flex justify-between items-center p-2">asdasdas</div>
+          <div className="flex justify-between items-center p-2">
+            Total {form.billing == 'Yearly' ? '(per year)' : '(per month)'}: ${finalFee}
+          </div>
         </div>
       </div>
       <div className="absolute bottom-0 w-full bg-white shadow-inner left-0 p-4  ">
@@ -80,24 +77,22 @@ const Finish = ({ title, handleBack }) => {
             onClick={handleBack}
             variant="text"
             sx={{
-              display: "inline-block",
-              color: "GrayText",
-              backgroundColor: "transparent",
-            }}
-          >
-            {"Go back"}
+              display: 'inline-block',
+              color: 'GrayText',
+              backgroundColor: 'transparent'
+            }}>
+            {'Go back'}
           </Button>
         )}
         <Button
           type="submit"
           variant="contained"
-          sx={{ float: "right", backgroundColor: "hsl(243, 100%, 62%)" }}
-        >
-          {stepper <= 3 ? "Next Step" : "Confirm"}
+          sx={{ float: 'right', backgroundColor: 'hsl(243, 100%, 62%)' }}>
+          {stepper <= 3 ? 'Next Step' : 'Confirm'}
         </Button>
       </div>
     </form>
   );
 };
 
-export default Finish;
+export default FourthStep;
