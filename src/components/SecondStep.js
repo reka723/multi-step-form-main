@@ -41,7 +41,7 @@ const SecondStep = ({ title, handleBack }) => {
 
   const fields = Plan.find((item) => item.id === form.billing);
   return (
-    <form className="flex flex-col md:gap-12 " onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col md:h-full md:relative " onSubmit={handleSubmit(onSubmit)}>
       <div>
         <div className="flex flex-col mt-12 m-4 gap-4  ">
           <p className="text-3xl font-bold text-blue-950">{title}</p>
@@ -56,7 +56,7 @@ const SecondStep = ({ title, handleBack }) => {
 
       <BillingComponent control={control} form={form} />
 
-      <div className="absolute md:static bottom-0  w-full bg-white shadow-inner left-0 p-4  ">
+      <div className="md:absolute fixed bottom-0  w-full bg-white md:shadow-none shadow-inner left-0 p-4  ">
         {stepper >= 2 && (
           <Button
             onClick={handleBack}

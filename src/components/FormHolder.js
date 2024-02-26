@@ -16,7 +16,7 @@ const FormHolder = () => {
   };
 
   return (
-    <div className="bg-white  md:w-1/2 w-11/12 md:static  m-auto absolute top-24 left-0 right-0 ml-auto rounded-lg overflow-hidden h-2/3  bg-white  m-5 shadow-lg ">
+    <div className="bg-white  md:w-3/4 md:h-full w-11/12 md:static  m-auto absolute top-24 left-0 right-0 ml-auto rounded-lg md:m-0 overflow-hidden h-2/3  bg-white  m-5  ">
       {(() => {
         switch (stepper) {
           case 1:

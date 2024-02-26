@@ -39,7 +39,7 @@ const ThirdStep = ({ title, handleBack }) => {
 
   const plan = AddOns.find((addon) => addon.id === form.billing);
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col md:h-full md:relative " onSubmit={handleSubmit(onSubmit)}>
       <div className>
         <div className="flex flex-col mt-12 m-4 gap-4 ">
           <p className="text-3xl font-bold text-blue-950">{title}</p>
@@ -73,7 +73,7 @@ const ThirdStep = ({ title, handleBack }) => {
           })}
         </div>
       </div>
-      <div className="absolute bottom-0 w-full bg-white shadow-inner left-0 p-4  ">
+      <div className="md:absolute fixed bottom-0  w-full bg-white md:shadow-none shadow-inner left-0 p-4  ">
         {stepper >= 2 && (
           <Button
             onClick={handleBack}

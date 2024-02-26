@@ -5,7 +5,7 @@ import { Controller } from 'react-hook-form';
 const BillingComponent = ({ control, form }) => {
   const selected = 'font-bold text-blue-950';
   return (
-    <div className="  flex justify-center bg-slate-100 rounded-lg p-5 mb-5">
+    <div className="  flex justify-center bg-slate-100 rounded-lg p-3 mb-16">
       <Controller
         name="billing"
         control={control}
