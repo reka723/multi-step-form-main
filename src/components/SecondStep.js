@@ -41,12 +41,14 @@ const SecondStep = ({ title, handleBack }) => {
 
   const fields = Plan.find((item) => item.id === form.billing);
   return (
-    <form className="flex flex-col md:h-full md:relative " onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col md:h-full md:relative md:gap-16 "
+      onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <div className="flex flex-col mt-12 m-4 gap-4  ">
+        <div className="flex flex-col mt-12 m-4 gap-6  ">
           <p className="text-3xl font-bold text-blue-950">{title}</p>
           <p className="text-slate-400">{text}</p>
-          <div className="flex md:flex-row md:w-full flex-col justify-center">
+          <div className="flex md:flex-row md:w-full flex-col justify-center md:pt-12 md:gap-5">
             {fields.plans.map((item) => (
               <Card item={item} form={form} control={control} />
             ))}
