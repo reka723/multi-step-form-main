@@ -1,9 +1,9 @@
-import { Button } from '@mui/material';
-import React, { useEffect, useReducer } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { formActions } from '../store/formSlice';
-import { AddOns, Plan } from '../data';
+import { Button } from "@mui/material";
+import React, { useEffect, useReducer } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { formActions } from "../store/formSlice";
+import { AddOns, Plan } from "../data";
 
 const FourthStep = ({ title, handleBack }) => {
   const dispatch = useDispatch();
@@ -11,18 +11,24 @@ const FourthStep = ({ title, handleBack }) => {
   const form = useSelector((state) => state.form);
   const text = useSelector((state) => state.text);
   const stepper = useSelector((state) => state.stepper);
+  let fee = null;
+  let finalFee = 0;
 
   const { control, handleSubmit } = useForm({});
   const onSubmit = (data) => {
+    if (stepper >= 4) {
+      console.log("data to submit: " + data);
+      return;
+    }
     dispatch(formActions.changeStepper({ value: stepper + 1 }));
   };
-  let fee = null;
-  let finalFee = 0;
 
   const addonPlan = AddOns.find((addon) => addon.id === form.billing);
   for (const billing of Plan) {
     if (billing.id === form.billing) {
-      const matchingPlan = billing.plans.find((plan) => plan.name === form.plan);
+      const matchingPlan = billing.plans.find(
+        (plan) => plan.name === form.plan
+      );
       if (matchingPlan) {
         fee = matchingPlan.fee;
         finalFee += Number(matchingPlan.fee);
@@ -32,13 +38,16 @@ const FourthStep = ({ title, handleBack }) => {
   }
 
   return (
-    <form className="flex flex-col md:h-full md:relative " onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col md:h-full md:relative "
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className>
         <div className="flex flex-col mt-12 m-4 gap-4 ">
           <p className="text-3xl font-bold text-blue-950">{title}</p>
           <p className="text-slate-400">{text}</p>
-          <div className="bg-slate-100 p-2">
-            <div className="flex justify-between items-center border-b-2 pb-2 ">
+          {/* <div className="bg-slate-100 p-2">
+          <div className="flex justify-between items-center border-b-2 pb-2 ">
               <div>
                 <p>
                   {form.plan} ({form.billing})
@@ -46,19 +55,25 @@ const FourthStep = ({ title, handleBack }) => {
                 <p>Change</p>
               </div>
               <div>
-                ${fee}/{form.billing == 'Yearly' ? 'yr' : 'mo'}
+                ${fee}/{form.billing == "Yearly" ? "yr" : "mo"}
               </div>
             </div>
             {form.addOns.map((addon) => {
-              const matchingAddOn = addonPlan.plans.find((entry) => entry.id === addon);
+              const matchingAddOn = addonPlan.plans.find(
+                (entry) => entry.id === addon
+              );
 
               if (matchingAddOn) {
                 finalFee += Number(matchingAddOn.price);
                 return (
-                  <div key={matchingAddOn.id} className="flex justify-between items-center">
+                  <div
+                    key={matchingAddOn.id}
+                    className="flex justify-between items-center"
+                  >
                     <p>{matchingAddOn.title}</p>
                     <p>
-                      +${matchingAddOn.price}/{form.billing == 'Yearly' ? 'yr' : 'mo'}
+                      +${matchingAddOn.price}/
+                      {form.billing == "Yearly" ? "yr" : "mo"}
                     </p>
                   </div>
                 );
@@ -67,8 +82,9 @@ const FourthStep = ({ title, handleBack }) => {
             })}
           </div>
           <div className="flex justify-between items-center p-2">
-            Total {form.billing == 'Yearly' ? '(per year)' : '(per month)'}: ${finalFee}
-          </div>
+            Total {form.billing == "Yearly" ? "(per year)" : "(per month)"}: $
+            {finalFee}
+          </div> */}
         </div>
       </div>
       <div className="md:absolute fixed bottom-0  w-full bg-white md:shadow-none shadow-inner left-0 p-4  ">
@@ -77,18 +93,20 @@ const FourthStep = ({ title, handleBack }) => {
             onClick={handleBack}
             variant="text"
             sx={{
-              display: 'inline-block',
-              color: 'GrayText',
-              backgroundColor: 'transparent'
-            }}>
-            {'Go back'}
+              display: "inline-block",
+              color: "GrayText",
+              backgroundColor: "transparent",
+            }}
+          >
+            {"Go back"}
           </Button>
         )}
         <Button
           type="submit"
           variant="contained"
-          sx={{ float: 'right', backgroundColor: 'hsl(243, 100%, 62%)' }}>
-          {stepper <= 3 ? 'Next Step' : 'Confirm'}
+          sx={{ float: "right", backgroundColor: "hsl(243, 100%, 62%)" }}
+        >
+          {stepper <= 3 ? "Next Step" : "Confirm"}
         </Button>
       </div>
     </form>

@@ -1,11 +1,11 @@
-import { Button, Switch, TextField } from '@mui/material';
-import React, { useEffect, useReducer } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { formActions } from '../store/formSlice';
-import { Plan } from '../data';
-import Card from './Card';
-import BillingComponent from './BillingComponent';
+import { Button, Switch, TextField } from "@mui/material";
+import React, { useEffect, useReducer } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { formActions } from "../store/formSlice";
+import { Plan } from "../data";
+import Card from "./Card";
+import BillingComponent from "./BillingComponent";
 
 const SecondStep = ({ title, handleBack }) => {
   const dispatch = useDispatch();
@@ -17,8 +17,8 @@ const SecondStep = ({ title, handleBack }) => {
   const { control, handleSubmit, watch } = useForm({
     defaultValues: {
       plan: form.plan,
-      billing: form.billing
-    }
+      billing: form.billing,
+    },
   });
 
   const onSubmit = (data) => {
@@ -27,10 +27,10 @@ const SecondStep = ({ title, handleBack }) => {
   useEffect(() => {
     const subscription = watch((value) => {
       if (value.billing == true) {
-        value.billing = 'Yearly';
+        value.billing = "Yearly";
       }
       if (value.billing == false) {
-        value.billing = 'Monthly';
+        value.billing = "Monthly";
       }
       console.log(value.billing);
       dispatch(formActions.updateForm(value));
@@ -40,10 +40,12 @@ const SecondStep = ({ title, handleBack }) => {
   }, [watch]);
 
   const fields = Plan.find((item) => item.id === form.billing);
+
   return (
     <form
       className="flex flex-col md:h-full md:relative md:gap-16 "
-      onSubmit={handleSubmit(onSubmit)}>
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div>
         <div className="flex flex-col mt-12 m-4 gap-6  ">
           <p className="text-3xl font-bold text-blue-950">{title}</p>
@@ -64,18 +66,20 @@ const SecondStep = ({ title, handleBack }) => {
             onClick={handleBack}
             variant="text"
             sx={{
-              display: 'inline-block',
-              color: 'GrayText',
-              backgroundColor: 'transparent'
-            }}>
-            {'Go back'}
+              display: "inline-block",
+              color: "GrayText",
+              backgroundColor: "transparent",
+            }}
+          >
+            {"Go back"}
           </Button>
         )}
         <Button
           type="submit"
           variant="contained"
-          sx={{ float: 'right', backgroundColor: 'rgb(23 37 84)' }}>
-          {stepper <= 3 ? 'Next Step' : 'Finish'}
+          sx={{ float: "right", backgroundColor: "rgb(23 37 84)" }}
+        >
+          {stepper <= 3 ? "Next Step" : "Finish"}
         </Button>
       </div>
     </form>

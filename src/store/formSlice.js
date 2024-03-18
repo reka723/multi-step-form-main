@@ -1,8 +1,8 @@
-import { act } from 'react-dom/test-utils';
-import { Plan, textData } from '../data';
+import { act } from "react-dom/test-utils";
+import { Plan, textData } from "../data";
 
-const { create } = require('@mui/material/styles/createTransitions');
-const { createSlice } = require('@reduxjs/toolkit');
+const { create } = require("@mui/material/styles/createTransitions");
+const { createSlice } = require("@reduxjs/toolkit");
 
 const initialFormState = {
   stepper: 1,
@@ -14,15 +14,15 @@ const initialFormState = {
     plan: Plan[0].plans[0].name,
     billing: Plan[0].id,
 
-    addOns: []
+    addOns: [],
   },
 
   title: textData[0].title,
-  text: textData[0].text
+  text: textData[0].text,
 };
 
 const formSlice = createSlice({
-  name: 'form',
+  name: "form",
   initialState: initialFormState,
   reducers: {
     updateForm(state, action) {
@@ -32,6 +32,7 @@ const formSlice = createSlice({
         }
       } else {
         for (const key in action.payload) {
+          console.log(key);
           state.form[key] = action.payload[key];
         }
       }
@@ -43,8 +44,8 @@ const formSlice = createSlice({
         state.title = textData[action.payload.value - 1].title;
         state.text = textData[action.payload.value - 1].text;
       }
-    }
-  }
+    },
+  },
 });
 
 export default formSlice.reducer;
