@@ -1,18 +1,19 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { formActions } from "../store/formSlice";
-import { Controller, useForm } from "react-hook-form";
-import ThirdStep from "./ThirdStep";
-import FourthStep from "./FourthStep";
-import FormContent from "./Form";
-import { firstPage, secondPage } from "./FormPages";
-import { Plan } from "../data";
-import { useEffect } from "react";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { formActions } from '../store/formSlice';
+import { Controller, useForm } from 'react-hook-form';
+import ThirdStep from './ThirdStep';
+import FourthStep from './FourthStep';
+import FormContent from './Form';
+import { firstPage, secondPage, thirdPage } from './FormPages';
+import { Plan } from '../data';
+import { useEffect } from 'react';
 
 const FormHolder = () => {
   const form = useSelector((state) => state.form);
   const title = useSelector((state) => state.title);
   const stepper = useSelector((state) => state.stepper);
+  const text = useSelector((state) => state.text);
 
   const dispatch = useDispatch();
   const handleBack = () => {
@@ -21,23 +22,23 @@ const FormHolder = () => {
   const { control, handleSubmit, watch } = useForm({
     defaultValues: {
       plan: form.plan,
-      billing: form.billing,
-    },
+      billing: form.billing
+    }
   });
   useEffect(() => {
     const subscription = watch((value) => {
       if (value.billing == true) {
-        value.billing = "Yearly";
+        value.billing = 'Yearly';
       }
       if (value.billing == false) {
-        value.billing = "Monthly";
+        value.billing = 'Monthly';
       }
       console.log(value);
       dispatch(formActions.updateForm(value));
     });
 
     return () => subscription.unsubscribe();
-  }, [watch("plan")]);
+  }, [watch('plan')]);
   const content = () => {
     const fields = Plan.find((item) => item.id === form.billing);
     console.log(fields);
@@ -47,7 +48,7 @@ const FormHolder = () => {
       case 2:
         return secondPage(form, fields, control);
       case 3:
-        return <ThirdStep title={title} handleBack={handleBack} />;
+        return thirdPage(form, fields, control);
       case 4:
         return <FourthStep title={title} handleBack={handleBack} />;
       default:
@@ -62,7 +63,7 @@ const FormHolder = () => {
         handleBack={handleBack}
         handleSubmit={handleSubmit}
         control={control}
-      >
+        title={title}>
         {formContent}
       </FormContent>
     </div>

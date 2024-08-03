@@ -39,11 +39,11 @@ const ThirdStep = ({ title, handleBack }) => {
 
   const plan = AddOns.find((addon) => addon.id === form.billing);
   return (
-    <form className="flex flex-col md:h-full md:relative " onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col  md:h-12 md:relative " onSubmit={handleSubmit(onSubmit)}>
       <div className>
         <div className="flex flex-col mt-12 m-4 gap-4 ">
           <p className="text-3xl font-bold text-blue-950">{title}</p>
-          <p className="text-slate-400">{text}</p>
+          {/* <p className="text-slate-400">{text}</p> */}
           {plan.plans.map((addOn) => {
             let price;
             if (form.billing === 'Yearly') {
@@ -73,7 +73,7 @@ const ThirdStep = ({ title, handleBack }) => {
           })}
         </div>
       </div>
-      <div className="md:absolute fixed bottom-0  w-full bg-white md:shadow-none shadow-inner left-0 p-4  ">
+      {/* <div className="md:absolute fixed bottom-0  w-full bg-white md:shadow-none shadow-inner left-0 p-4  ">
         {stepper >= 2 && (
           <Button
             onClick={handleBack}
@@ -92,7 +92,7 @@ const ThirdStep = ({ title, handleBack }) => {
           sx={{ float: 'right', backgroundColor: 'rgb(23 37 84)' }}>
           {stepper <= 3 ? 'Next Step' : 'Finish'}
         </Button>
-      </div>
+      </div> */}
     </form>
   );
 };
